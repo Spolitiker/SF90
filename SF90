@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>SF90</title>
 
-  <!-- mobil na celú obrazovku -->
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   <style>
@@ -16,14 +15,6 @@
       justify-content: center;
       align-items: center;
       font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .container {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     button {
@@ -49,26 +40,33 @@
 </head>
 
 <body>
-  <div class="container">
-    <button id="toggleBtn">ZAPNÚŤ ROBOTA</button>
-  </div>
+  <button id="robotBtn">ZAPNÚŤ ROBOTA</button>
 
   <script>
-    let zapnute = false;
-    const btn = document.getElementById("toggleBtn");
+    let robotOn = false;
+    const btn = document.getElementById("robotBtn");
 
-    btn.onclick = () => {
-      zapnute = !zapnute;
+    btn.addEventListener("click", () => {
+      robotOn = !robotOn;
 
-      if (zapnute) {
+      if (robotOn) {
         btn.textContent = "VYPNÚŤ ROBOTA";
         btn.classList.add("off");
+        sendCommand("on");
       } else {
         btn.textContent = "ZAPNÚŤ ROBOTA";
         btn.classList.remove("off");
+        sendCommand("off");
       }
-    };
+    });
+
+    function sendCommand(state) {
+      console.log("Robot state:", state);
+
+      // PRIPRAVENÉ NA ESP / SERVER
+      // fetch("http://IP_ADRESA_ESP/robot?state=" + state)
+      //   .catch(err => console.log(err));
+    }
   </script>
 </body>
 </html>
-
